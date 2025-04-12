@@ -1,0 +1,455 @@
+body { 
+
+    font-family: Arial, sans-serif; 
+
+    text-align: center;
+
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+    background-color: #f0f0f0;
+
+}
+
+
+
+#game-container {
+
+    display: none;
+
+}
+
+
+
+#menu-container {
+
+    margin: 50px auto;
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+}
+
+
+
+.grid { 
+
+    display: grid;
+
+    gap: 5px; 
+
+    margin: 20px auto;
+
+    width: fit-content;
+
+}
+
+
+
+.cell { 
+
+    width: 80px; 
+
+    height: 80px; 
+
+    display: flex; 
+
+    align-items: center; 
+
+    justify-content: center; 
+
+    font-size: 24px; 
+
+    background: white; 
+
+    border-radius: 5px; 
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    animation: fadeIn 0.3s ease-in;
+
+}
+
+
+
+.selected { 
+
+    background: #87CEFA;
+
+    animation: pulse 0.5s infinite;
+
+}
+
+
+
+.invalid { 
+
+    background: #FFB6C1;
+
+}
+
+
+
+.matched { 
+
+    animation: matchAnimation 0.5s ease;
+
+}
+
+
+
+.hint {
+
+    animation: glow 1s infinite;
+
+}
+
+
+
+.game-info {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    margin: 20px 0;
+
+    padding: 10px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+}
+
+
+
+.timer {
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    color: #333;
+
+}
+
+
+
+.lives {
+
+    font-size: 24px;
+
+    color: #ff4444;
+
+}
+
+
+
+button {
+
+    padding: 10px 20px;
+
+    margin: 10px;
+
+    font-size: 16px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background: #4CAF50;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: background 0.3s;
+
+}
+
+
+
+button:hover {
+
+    background: #45a049;
+
+}
+
+
+
+button:disabled {
+
+    background: #cccccc;
+
+    cursor: not-allowed;
+
+}
+
+
+
+.grid-size-btn {
+
+    padding: 15px 30px;
+
+    margin: 10px;
+
+    font-size: 18px;
+
+}
+
+
+
+.popup {
+
+    position: fixed;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+
+    z-index: 1000;
+
+    display: none;
+
+}
+
+
+
+.popup h2 {
+
+    margin-top: 0;
+
+    color: #333;
+
+}
+
+
+
+.points-popup {
+
+    position: absolute;
+
+    color: #228B22;
+
+    font-weight: bold;
+
+    font-size: 24px;
+
+    animation: popupAnimation 1s ease-out forwards;
+
+    pointer-events: none;
+
+}
+
+
+
+@keyframes fadeIn {
+
+    from { opacity: 0; transform: scale(0.9); }
+
+    to { opacity: 1; transform: scale(1); }
+
+}
+
+
+
+@keyframes pulse {
+
+    0% { transform: scale(1); }
+
+    50% { transform: scale(1.1); }
+
+    100% { transform: scale(1); }
+
+}
+
+
+
+@keyframes glow {
+
+    0% { box-shadow: 0 0 5px yellow; }
+
+    50% { box-shadow: 0 0 20px yellow; }
+
+    100% { box-shadow: 0 0 5px yellow; }
+
+}
+
+
+
+@keyframes matchAnimation {
+
+    0% { transform: scale(1); }
+
+    50% { transform: scale(1.1); background: #90EE90; }
+
+    100% { transform: scale(1); }
+
+}
+
+
+
+@keyframes popupAnimation {
+
+    0% { transform: translateY(0); opacity: 1; }
+
+    100% { transform: translateY(-30px); opacity: 0; }
+
+}
+
+
+
+@keyframes numberChange {
+
+    0% { transform: scale(1); opacity: 1; }
+
+    50% { transform: scale(1.5); opacity: 0; }
+
+    100% { transform: scale(1); opacity: 1; }
+
+}
+
+
+
+.rules-section {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin: 20px auto;
+
+    max-width: 800px;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+}
+
+
+
+.rules-container {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 20px;
+
+    text-align: left;
+
+}
+
+
+
+.rules-container h3 {
+
+    color: #4CAF50;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.rules-container ul {
+
+    list-style-type: none;
+
+    padding-left: 0;
+
+}
+
+
+
+.rules-container li {
+
+    margin-bottom: 10px;
+
+    padding-left: 20px;
+
+    position: relative;
+
+}
+
+
+
+.rules-container li:before {
+
+    content: "•";
+
+    color: #4CAF50;
+
+    position: absolute;
+
+    left: 0;
+
+}
+
+
+
+.grid-selection {
+
+    margin: 20px 0;
+
+}
+
+
+
+.timer-selection {
+
+    margin: 20px 0;
+
+}
+
+
+
+.timer-selection select {
+
+    padding: 8px;
+
+    font-size: 16px;
+
+    border-radius: 5px;
+
+    border: 1px solid #ccc;
+
+    margin-left: 10px;
+
+    cursor: pointer;
+
+}
+
+
+
+.timer-selection label {
+
+    font-size: 16px;
+
+}

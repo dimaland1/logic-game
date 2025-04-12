@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+   <meta charset="UTF-8">
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <title>Connexion - Jeu de Logique</title>
+
+   <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+
+
+    <div class="grid-selection">
+
+        <h1>Connexion - Jeu de Logique</h1>
+
+        <h2>Sélectionnez une taille de grille</h2>
+
+        <button class="grid-size-btn" onclick="startGame(3)">3 x 3</button>
+
+        <button class="grid-size-btn" onclick="startGame(4)">4 x 4</button>
+
+        <button class="grid-size-btn" onclick="startGame(5)">5 x 5</button>
+
+    
+
+        <div class="timer-selection">
+
+            <label for="duration">Choisir la durée :</label>
+
+            <select id="duration" onchange="updateDuration()">
+
+                <option value="10">10 secondes</option>
+
+                <option value="20">20 secondes</option>
+
+                <option value="30" selected>30 secondes</option>
+
+                <option value="45">45 secondes</option>
+
+                <option value="60">60 secondes</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+
+   <div id="menu-container">
+
+
+
+       <div class="rules-section">
+
+           <h2>Règles du jeu</h2>
+
+           <div class="rules-container">
+
+               <div class="basic-rules">
+
+                   <h3>Principes de base</h3>
+
+                   <ul>
+
+                       <li>Sélectionnez des cases adjacentes (horizontalement, verticalement ou en diagonale)</li>
+
+                       <li>La somme des nombres sélectionnés doit être égale à 10</li>
+
+                       <li>Vous avez 30 secondes pour trouver une combinaison</li>
+
+                       <li>Le timer se réinitialise à chaque combinaison trouvée</li>
+
+                   </ul>
+
+               </div>
+
+
+
+               <div class="points-system">
+
+                   <h3>Système de points</h3>
+
+                   <ul>
+
+                       <li>2 cases = 5 points</li>
+
+                       <li>3 cases = 10 points</li>
+
+                       <li>4 cases = 15 points</li>
+
+                       <li>5 cases ou plus = 20 points</li>
+
+                       <li>Bonus diagonal : +2 points par diagonale utilisée</li>
+
+                   </ul>
+
+               </div>
+
+
+
+               <div class="game-features">
+
+                   <h3>Fonctionnalités</h3>
+
+                   <ul>
+
+                       <li>3 vies disponibles</li>
+
+                       <li>Bouton "Révéler" pour voir une combinaison possible (coûte 1 vie)</li>
+
+                       <li>Game Over si plus de vies ou temps écoulé</li>
+
+                       <li>Meilleurs scores sauvegardés pour chaque taille de grille</li>
+
+                   </ul>
+
+               </div>
+
+           </div>
+
+       </div>
+
+
+
+       <div class="high-scores">
+
+           <h2>Meilleurs scores</h2>
+
+           <div id="highScores3x3">3x3: 0</div>
+
+           <div id="highScores4x4">4x4: 0</div>
+
+           <div id="highScores5x5">5x5: 0</div>
+
+       </div>
+
+   </div>
+
+
+
+   <div id="game-container">
+
+       <div class="game-info">
+
+           <div class="timer" id="timer">10s</div>
+
+           <div class="lives" id="lives">❤️❤️❤️</div>
+
+           <div id="score">Score: 0</div>
+
+       </div>
+
+       
+
+       <div class="grid" id="grid"></div>
+
+       
+
+       <div class="game-controls">
+
+           <button onclick="showHint()">Révéler une combinaison (1 vie)</button>
+
+           <button onclick="returnToMenu()">Afficher les règles</button>
+
+       </div>
+
+   </div>
+
+
+
+   <div class="popup" id="gameOverPopup">
+
+       <h2>Game Over!</h2>
+
+       <p id="finalScore"></p>
+
+       <button onclick="startGame(-1)">Rejouer</button>
+
+       <button onclick="returnToMenu()">Afficher les règles</button>
+
+   </div>
+
+
+
+   <script src="script.js"></script>
+
+</body>
+
+</html>
