@@ -38,6 +38,15 @@ function updateDuration() {
 
 function startGame(size) {
 
+    // réinitialiser les variables
+    lives = 3;
+    score = 0;
+    selectedCells = [];
+    isGameOver = false;
+    document.getElementById('lives').textContent = '❤️'.repeat(lives);
+    document.getElementById('score').textContent = `Score: ${score}`;
+
+    
     updateDuration();
 
     gridSize = size;
@@ -61,6 +70,8 @@ function startGame(size) {
     document.getElementById('gameOverPopup').style.display = 'none';
 
     resetGame();
+
+    
 
 }
 
@@ -121,6 +132,12 @@ function resetGame() {
     timeLeft = initialDuration;
 
     isGameOver = false;
+
+    // réinitialiser le bouton indice
+    const hintButton = document.getElementById('hintButton');
+    hintButton.disabled = false;
+    hintButton.style.cursor = 'pointer';
+    hintButton.style.backgroundColor = '#007bff';
 
     
 
@@ -482,24 +499,32 @@ function checkSum() {
 
     let sum = selectedCells.reduce((acc, [r, c]) => acc + grid[r][c], 0);
 
-    
+    if (lives === 0) {
+            // Désactive le bouton indice
+            const hintButton = document.getElementById('hintButton');
+            if (hintButton) {
+                hintButton.disabled = true;
+                hintButton.style.backgroundColor = '#ccc';
+                hintButton.style.cursor = 'not-allowed';
+            }
+        }
 
     if (sum > 10) {
+        // Perte de vie en cas de mauvaise combinaison
+        if (lives > 0) {
+            lives--;
+            document.getElementById('lives').textContent = '❤️'.repeat(lives);
+        }else{
+            setTimeout(() => gameOver('Plus de vies!'), 500);
+        }
 
         selectedCells.forEach(([r, c]) => {
-
             const cell = gridElement.children[r * gridSize + c];
-
             cell.classList.add('invalid');
-
             setTimeout(() => {
-
                 cell.classList.remove('selected', 'invalid');
-
             }, 500);
-
         });
-
         selectedCells = [];
 
     } else if (sum === 10) {

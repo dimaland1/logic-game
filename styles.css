@@ -16,6 +16,7 @@ body {
 
 
 
+
 #game-container {
 
     display: none;
@@ -198,6 +199,11 @@ button:disabled {
 
     cursor: not-allowed;
 
+}
+
+#hintButton{
+    background-color: #007bff;
+    cursor: pointer;
 }
 
 
