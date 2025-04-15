@@ -24,11 +24,11 @@
 
         <h2>Sélectionnez une taille de grille</h2>
 
-        <button class="grid-size-btn" onclick="startGame(3)">3 x 3</button>
+        <button class="grid-size-btn" type="button" onclick="startGame(3)">3 x 3</button>
 
-        <button class="grid-size-btn" onclick="startGame(4)">4 x 4</button>
+        <button class="grid-size-btn" type="button" onclick="startGame(4)">4 x 4</button>
 
-        <button class="grid-size-btn" onclick="startGame(5)">5 x 5</button>
+        <button class="grid-size-btn" type="button" onclick="startGame(5)">5 x 5</button>
 
     
 
@@ -168,9 +168,9 @@
 
        <div class="game-controls">
 
-           <button onclick="showHint()">Révéler une combinaison (1 vie)</button>
+           <button id="hintButton" type="button" onclick="showHint()">Révéler une combinaison (1 vie)</button>
 
-           <button onclick="returnToMenu()">Afficher les règles</button>
+           <button type="button" onclick="returnToMenu()">Menu</button>
 
        </div>
 
@@ -184,9 +184,9 @@
 
        <p id="finalScore"></p>
 
-       <button onclick="startGame(-1)">Rejouer</button>
+       <button type="button" onclick="startGame(-1)">Rejouer</button>
 
-       <button onclick="returnToMenu()">Afficher les règles</button>
+       <button type="button" onclick="returnToMenu()">Afficher les règles</button>
 
    </div>
 

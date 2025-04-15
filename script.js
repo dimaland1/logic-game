@@ -38,6 +38,8 @@ function updateDuration() {
 
 function startGame(size) {
 
+    updateDuration();
+
     gridSize = size;
 
     if(size == -1){
@@ -116,7 +118,7 @@ function resetGame() {
 
     lives = 3;
 
-    timeLeft = 10;
+    timeLeft = initialDuration;
 
     isGameOver = false;
 
@@ -125,6 +127,8 @@ function resetGame() {
     document.getElementById('lives').textContent = '❤️'.repeat(lives);
 
     document.getElementById('score').textContent = `Score: ${score}`;
+
+    updateTimerDisplay();
 
     
 
@@ -316,9 +320,17 @@ function showHint() {
 
     
 
-    if (lives <= 0) {
+    if (lives === 0) {
 
-        gameOver('Plus de vies!');
+        document.getElementById('lives').textContent = '❤️'.repeat(0);
+
+        // enlever le bouton de révéler une combinaison
+        const hintButton = document.getElementById('hintButton');
+        hintButton.disabled = true;
+        hintButton.style.backgroundColor = '#ccc';
+        hintButton.style.cursor = 'not-allowed';
+
+        //setTimeout(() => gameOver('Plus de vies!'), 500);
 
     }
 
@@ -344,9 +356,11 @@ function gameOver(reason) {
 
     
 
-    document.getElementById('finalScore').textContent = 
+    updateHighScoresDisplay();
 
-        `Score final: ${score}\nMeilleur score: ${getHighScore()}`;
+    document.getElementById('finalScore').innerHTML = 
+
+        `Score final: ${score}<br>Meilleur score: ${getHighScore()}`;
 
     document.getElementById('gameOverPopup').style.display = 'block';
 
@@ -426,9 +440,23 @@ function selectCell(r, c, cell) {
 
     if (isGameOver) return;
 
-    if (selectedCells.some(([sr, sc]) => sr === r && sc === c)) return;
+    if (selectedCells.length > 0) {
 
-    
+        const [lastR, lastC] = selectedCells[selectedCells.length - 1];
+
+        if (lastR === r && lastC === c) {
+
+            selectedCells.pop();
+
+            cell.classList.remove('selected');
+
+            return;
+
+        }
+
+    }
+
+    if (selectedCells.some(([sr, sc]) => sr === r && sc === c)) return;
 
     if (!canSelectCell(r, c)) {
 
@@ -439,8 +467,6 @@ function selectCell(r, c, cell) {
         return;
 
     }
-
-
 
     selectedCells.push([r, c]);
 
